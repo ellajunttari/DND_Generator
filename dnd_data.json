@@ -1,0 +1,117 @@
+{
+    "Races" : {
+        "Dragonborn" : {
+            "Subraces" : []
+        },
+        "Dwarf" : {
+            "Subraces" : ["Hill dwarf", "Mountain dwarf"]
+        },
+        "Elf" : {
+            "Subraces" : ["High elf", "Wood elf", "Dark elf (Drow)"]
+        },
+        "Gnome" : {
+            "Subraces" : ["Forest gnome", "Rock gnome"]
+        },
+        "Half-Elf" : {
+            "Subraces" : []
+        },
+        "Halfling" : {
+            "Subraces" : ["Lightfoot", "Stout"]
+        },
+        "Half-Orc" : {
+            "Subraces" : []
+        },
+        "Human" : {
+            "Subraces" : []
+        },
+        "Tiefling" : {
+            "Subraces" : []
+        }
+    },
+    "Classes" : {
+        "Barbarian" : {
+            "Description" : "A fierce warrior of primitive background who can enter a battle rage",
+            "Hit_die" : "d12",
+            "Primary_aility" : ["Strength"],
+            "Saving_throw_proficiencies" : ["Strength","Constitution"],
+            "Subclasses" : ["Path of the Berserker", "Path of the Totem Warrior"]
+        },
+        "Bard" : {
+            "Description" : "An inspiring magician whose power echoes the music of creation",
+            "Hit_die" : "d8",
+            "Primary_aility" : ["Charisma"],
+            "Saving_throw_proficiencies" : ["Dexterity","Charisma"],
+            "Subclasses" : ["College of Lore","College of Valor"]
+        },
+        "Cleric" : {
+            "Description" : "A priestly champion who wields divine magic in service of a higher power",
+            "Hit_die" : "d8",
+            "Primary_aility" : ["Wisdom"],
+            "Saving_throw_proficiencies" : ["Wisdom","Charisma"],
+            "Subclasses" : ["Knowledge Domain","Life Domain","Light Domain","Tempest Domain","Trickery Domain","War Domain"]
+        },
+        "Druid" : {
+            "Description" : "A priest of the Old Faith, wielding te powers of nature-moonlight and plant growth, fire and lightning-and adopting animal forms",
+            "Hit_die" : "d8",
+            "Primary_aility" : ["Wisdom"],
+            "Saving_throw_proficiencies" : ["Intelligence","Wisdom"],
+            "Subclasses" : ["Circle of the Land","Circle of the Moon"]
+        },
+        "Fighter" : {
+            "Description" : "A master of martial combat, skilled with a variety of weapons and armor",
+            "Hit_die" : "d10",
+            "Primary_aility" : ["Strength","Dexterity"],
+            "Saving_throw_proficiencies" : ["Strength","Constitution"],
+            "Subclasses" : ["Champion","Battle Master","Eldritch Knight"]
+        },
+        "Monk" : {
+            "Description" : "A master of martial arts, harnessing the power of the body in pursuit of physical and spiritual perfection",
+            "Hit_die" : "d8",
+            "Primary_aility" : ["Dextrity","Wisdom"],
+            "Saving_throw_proficiencies" : ["Strength","Dexterity"],
+            "Subclasses" : ["Way of the Open Hand","Way of Shadow","Way of the Four Elements"]
+        },
+        "Paladin" : {
+            "Description" : "A holy warrior bound to a sacred oath",
+            "Hit_die" : "d10",
+            "Primary_aility" : ["Strength","Charisma"],
+            "Saving_throw_proficiencies" : ["Wisdom","Charisma"],
+            "Subclasses" : ["Oath of Devotion","Oath of the Ancients","Oath of Vengeance"]
+        },
+        "Ranger" : {
+            "Description" : "A warrior who uses martial prowess and nature magic to combat threats on the edges of civilization",
+            "Hit_die" : "d10",
+            "Primary_aility" : ["Dexterity","Wisdom"],
+            "Saving_throw_proficiencies" : ["Stength","Dexterity"],
+            "Subclasses" : ["Hunter","Beast Master"]
+        },
+        "Rogue" : {
+            "Description" : "A scoundrel who uses stealth and trickery to overcome obstacles and enemies",
+            "Hit_die" : "d8",
+            "Primary_aility" : ["Dexterity"],
+            "Saving_throw_proficiencies" : ["Dexterity","Intelligence"],
+            "Subclasses" : ["Thief","Arcane Trickster"]
+        },
+        "Sorcerer" : {
+            "Description" : "A spellcaster who draws on inherent magic from a gift or bloodline",
+            "Hit_die" : "d8",
+            "Primary_aility" : ["Charisma"],
+            "Saving_throw_proficiencies" : ["Constitution","Charisma"],
+            "Subclasses" : ["Dragonic Bloodline","Wild Magic"]
+        },
+        "Warlock" : {
+            "Description" : "A wielder of magic that is derived from a bargain with an extraplanar entity",
+            "Hit_die" : "d8",
+            "Primary_aility" : ["Charisma"],
+            "Saving_throw_proficiencies" : ["Wisdom","Charisma"],
+            "Subclasses" : ["The Archfey","The Fiend","The Great Old One"]
+        },
+        "Wizard" : {
+            "Description" : "A scholarly magic-user capable of manipulating the structures of reality",
+            "Hit_die" : "d6",
+            "Primary_aility" : ["Intelligence"],
+            "Saving_throw_proficiencies" : ["Intelligence","Wisdom"],
+            "Subclasses" : ["School of Abjuration","School of Conjuration","School of Divination","School of Enchantment","School of Evocation","School of Illusion","School of Necromancy","School of Transmutation"]
+        }
+    }
+}
