@@ -48,6 +48,29 @@ def give_name(character_race):
     driver.close()
     return name
 
+def get_level():
+    val = input("What level do you want to start at? ")
+    return val
+
+def roll_scores():
+    scores = {
+        "Strength": 0,
+        "Dexterity" : 0,
+        "Constitution" : 0,
+        "Intelligence": 0,
+        "Wisdom": 0,
+        "Charisma": 0
+    }
+    for score in scores:
+        scores[score] = roll_a_score()
+    return scores
+
+def roll_a_score():
+    rolls = [random.randint(1,6) for i in range(0,4)]
+    rolls.sort(reverse=True)
+    score = sum(rolls[0:3])
+    return score
+
 def print_information(character):
     print(f"Your name is {character['Name']}")
     if character["Race"][0] in ['A','E','I','O','U','Y']:
@@ -55,13 +78,19 @@ def print_information(character):
     else:
         print(f"You are a {character['Race']} {character['Class']}.")
     print(f"Your subclass is {character['Subclass']}.")
+    print("Your ability scores are: ")
+    for score in character["Scores"]:
+        print(f"{score}: {character['Scores'][score]}")
 
 f = open('dnd_data.json')
 data = json.load(f)
 character = {}
+print("Generating your character...")
 character["Race"] = randomize_race()
 character.update(randomize_class())
 character["Name"] = give_name(character["Race"])
+#level = get_level()
+character["Scores"] = roll_scores()
 print_information(character)
 
 f.close()
