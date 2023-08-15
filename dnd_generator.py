@@ -11,46 +11,47 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
+api_root = "https://www.dnd5eapi.co/api/"
 
-def randomize_race():
-    races = []
-    for race in data["Races"]:
-        races.append(race)
-    return random.choice(races)
-
-def randomize_class():
-    classes = []
-    for c in data["Classes"]:
-        classes.append(c)
-    main_class = random.choice(classes)
-    sub_classes = []
-    for sub in data["Classes"][main_class]["Subclasses"]:
-        sub_classes.append(sub)
-    sub_class = random.choice(sub_classes)
-    return {"Class" : main_class, "Subclass" : sub_class}
-
-def give_name(character_race):
-    link = f"https://www.fantasynamegenerators.com/dnd-{character_race.lower()}-names.php"
-    options = webdriver.ChromeOptions()
-    options.add_experimental_option('excludeSwitches', ['enable-logging'])
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-    driver.get(link)
-    try:
-        WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ncmp__banner-btns']/button[2]"))).click()
-    except:
-        pass
-    try:
-        WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//input[contains(@value, 'Female names')]"))).click()
-    except:
-        WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//input[contains(@value, 'Get female names')]"))).click()
-    names = driver.find_element(By.ID, "result")
-    name = names.text.split('\n')[0]
-    driver.close()
-    return name
+def generate_character(character):
+    character["Level"] = get_level()
+    [character["Race"], character["Subrace"]] = get_race()
+    [character["Class"], character["Subclass"]] = get_main_class()
+    character["Name"] = give_name()
+    character["Scores"] = roll_scores()
 
 def get_level():
     val = input("What level do you want to start at? ")
     return val
+
+def get_race():
+    race = random.choice(requests.get(f"{api_root}races").json()["results"])
+    subrace = get_sub_race(race)
+    return [race, subrace]
+
+def get_sub_race(race):
+    subraces = requests.get(f"{api_root}races/{race['index']}/subraces").json()
+    if subraces["count"] != 0:
+        subrace = random.choice(subraces['results'])
+    else:
+        subrace = ''
+    return subrace
+
+def get_main_class():
+    dnd_class = random.choice(requests.get(f"{api_root}classes").json()["results"])
+    subclass = get_subclass(dnd_class)
+    return [dnd_class, subclass]
+
+def get_subclass(dnd_class):
+    subclass = random.choice(requests.get(f"{api_root}classes/{dnd_class['index']}/subclasses").json()["results"])
+    return subclass
+
+def give_name():
+    chartopia_api_root = "https://chartopia.d12dev.com/api"
+    name_results = requests.post(f"{chartopia_api_root}/charts/69548/roll/").json()['results'][0]
+    name = name_results.replace("\n ", "")
+    name = name.replace(" ", "", 1)
+    return name
 
 def roll_scores():
     scores = {
@@ -71,26 +72,17 @@ def roll_a_score():
     score = sum(rolls[0:3])
     return score
 
-def print_information(character):
+def print_character(character):
     print(f"Your name is {character['Name']}")
-    if character["Race"][0] in ['A','E','I','O','U','Y']:
-        print(f"You are an {character['Race']} {character['Class']}.")
+    if character["Race"]['name'] in ['A','E','I','O','U','Y']:
+        print(f"You are an {character['Race']['name']} {character['Class']['name']}. Your subclass is {character['Subclass']['name']}.")
     else:
-        print(f"You are a {character['Race']} {character['Class']}.")
-    print(f"Your subclass is {character['Subclass']}.")
-    print("Your ability scores are: ")
+        print(f"You are a {character['Race']['name']} {character['Class']['name']}. Your subclass is {character['Subclass']['name']}.")
+        print("Your ability scores are: ")
     for score in character["Scores"]:
         print(f"{score}: {character['Scores'][score]}")
 
-f = open('dnd_data.json')
-data = json.load(f)
 character = {}
 print("Generating your character...")
-character["Race"] = randomize_race()
-character.update(randomize_class())
-character["Name"] = give_name(character["Race"])
-#level = get_level()
-character["Scores"] = roll_scores()
-print_information(character)
-
-f.close()
+generate_character(character)
+print_character(character)
